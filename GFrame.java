@@ -9,7 +9,6 @@ public class GFrame extends JFrame {
         menu.setEventOnStartClick((e) -> {
             this.remove(menu);
             this.add(new Game());
-            // this.getContentPane().add(new JButton("yoyoyoyoyoyoyoyo"));
             this.validate();
             this.repaint();
         });

@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import javax.swing.*;
 
@@ -93,8 +92,6 @@ public class Menu extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == StartBtn) {
-            // game = new Game();
-            // System.out.println("StartGame");
             onStartClick.accept(e);
         }
 
