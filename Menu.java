@@ -12,7 +12,8 @@ public class Menu extends JPanel implements ActionListener {
     private JButton modeBtn_minus;
     private JButton ExitBtn;
     private JLabel Logo;
-    private JLabel label;
+    private JLabel Background;
+    private JLabel setMode;
     private Consumer<ActionEvent> onStartClick;
 
     final int SCREEN_WIDTH = 1535;
@@ -31,6 +32,8 @@ public class Menu extends JPanel implements ActionListener {
 
     private void Start() {
 
+        Gamemode();
+
         // Start
         StartBtn = new JButton("");
         StartBtn.setIcon(new ImageIcon("btn\\StartBtn.png"));
@@ -46,8 +49,8 @@ public class Menu extends JPanel implements ActionListener {
         modeBtn_plus.setContentAreaFilled(false);
         modeBtn_minus.setBorderPainted(false);
         modeBtn_minus.setContentAreaFilled(false);
-        modeBtn_plus.setBounds(980, 380, 80, 80);
-        modeBtn_minus.setBounds(480, 380, 80, 80);
+        modeBtn_plus.setBounds(980, 370, 80, 80);
+        modeBtn_minus.setBounds(480, 370, 80, 80);
 
         modeBtn_minus.addActionListener(this);
         modeBtn_plus.addActionListener(this);
@@ -73,15 +76,23 @@ public class Menu extends JPanel implements ActionListener {
         Logo.setBounds(LOGO_X, LOGO_Y, 600, 600);
         this.add(Logo);
 
-        Gamemode();
+        Backgroundmode();
 
     }
 
     // Mode
+
     private void Gamemode() {
-        label = new JLabel(new ImageIcon("src\\Easy.png"), JLabel.LEFT);
-        label.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        this.add(label);
+        setMode = new JLabel(new ImageIcon("src\\ModeEasy.png"));
+        setMode.setBounds(570, 320, 400, 200);
+        this.add(setMode);
+    }
+
+    private void Backgroundmode() {
+        // Background
+        Background = new JLabel(new ImageIcon("src\\Easy.png"), JLabel.LEFT);
+        Background.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        this.add(Background);
     }
 
     public void setEventOnStartClick(Consumer<ActionEvent> e) {
@@ -93,6 +104,7 @@ public class Menu extends JPanel implements ActionListener {
 
         if (e.getSource() == StartBtn) {
             onStartClick.accept(e);
+            System.out.println("StartGame");
         }
 
         // Plus Mode
@@ -102,13 +114,25 @@ public class Menu extends JPanel implements ActionListener {
                 mode = 3;
             }
 
-            if (mode == 1) {
-                label.setIcon(new ImageIcon(getClass().getResource("src\\Easy.png")));
+             // Change Mode setMode
+             if (mode == 1) {
+                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeEasy.png")));
+                setMode.setBounds(570, 320, 400, 200);
             } else if (mode == 2) {
-                label.setIcon(new ImageIcon(getClass().getResource("src\\Normal.png")));
-
+                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeNormal.png")));
+                setMode.setBounds(580, 320, 400, 200);
             } else {
-                label.setIcon(new ImageIcon(getClass().getResource("src\\Hard.png")));
+                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeHard.png")));
+                setMode.setBounds(570, 320, 400, 200);
+            }
+
+            // Change Mode Background
+            if (mode == 1) {
+                Background.setIcon(new ImageIcon(getClass().getResource("src\\Easy.png")));
+            } else if (mode == 2) {
+                Background.setIcon(new ImageIcon(getClass().getResource("src\\Normal.png")));
+            } else {
+                Background.setIcon(new ImageIcon(getClass().getResource("src\\Hard.png")));
             }
 
             if (mode != 1) {
@@ -133,12 +157,28 @@ public class Menu extends JPanel implements ActionListener {
                 mode = 1;
             }
 
+            // Change Mode setMode
             if (mode == 1) {
-                label.setIcon(new ImageIcon(getClass().getResource("src\\Easy.png")));
+                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeEasy.png")));
+                setMode.setBounds(570, 320, 400, 200);
             } else if (mode == 2) {
-                label.setIcon(new ImageIcon(getClass().getResource("src\\Normal.png")));
+                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeNormal.png")));
+                setMode.setBounds(580, 320, 400, 200);
             } else {
-                label.setIcon(new ImageIcon(getClass().getResource("src\\Hard.png")));
+                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeHard.png")));
+                setMode.setBounds(570, 320, 400, 200);
+            }
+
+            // Change Mode
+            if (mode == 1) {
+
+                Background.setIcon(new ImageIcon(getClass().getResource("src\\Easy.png")));
+            } else if (mode == 2) {
+
+                Background.setIcon(new ImageIcon(getClass().getResource("src\\Normal.png")));
+            } else {
+
+                Background.setIcon(new ImageIcon(getClass().getResource("src\\Hard.png")));
             }
 
             if (mode != 1) {

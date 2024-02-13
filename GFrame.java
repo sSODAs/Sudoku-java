@@ -1,6 +1,5 @@
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class GFrame extends JFrame {
@@ -9,7 +8,7 @@ public class GFrame extends JFrame {
         menu.setEventOnStartClick((e) -> {
             this.remove(menu);
             this.add(new Game());
-            this.validate();
+            // this.validate();
             this.repaint();
         });
 
