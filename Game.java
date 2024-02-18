@@ -4,16 +4,17 @@ import javax.swing.border.EmptyBorder;
 // import java.awt.MouseInfo;
 
 import java.awt.event.*;
-import java.util.Arrays;
 
 public class Game extends JPanel {
-    private GFrame frame;
+    private GameContext gameContext;
     private SudoTable table;
     private int SCREEN_WIDTH = 1535;
     private int SCREEN_HEIGHT = 850;
+    private Difficulty difficulty = Difficulty.EASY;
 
-    Game(GFrame frame) {
-        this.frame = frame;
+    Game(GameContext c, int d) {
+        this.gameContext = c;
+        this.difficulty = Difficulty.values()[d - 1];
         running();
         resetTable();
     }
@@ -25,14 +26,13 @@ public class Game extends JPanel {
 
         this.setLayout(null);
         this.setBackground(Color.BLUE);
-
     }
 
     private void resetTable() {
         if (this.table != null) {
             this.remove(this.table);
         }
-        table = new SudoTable(frame, this, 9, 2, 100, 100);
+        table = new SudoTable(this.gameContext, this, 9, difficulty.Random(), 100, 100);
         this.add(table);
         this.repaint();
     }
@@ -47,7 +47,7 @@ public class Game extends JPanel {
 }
 
 class SudoTable extends JPanel {
-    private GFrame frame;
+    private GameContext gameContext;
     private Algorithm mySudoku;
     private int[][] myMat;
     // private SudoButton curButton;
@@ -61,9 +61,9 @@ class SudoTable extends JPanel {
     private int xPos;
     private int yPos;
 
-    SudoTable(GFrame frame, Game gn, int size, int missingDigits, int x, int y, int width, int height) {
+    SudoTable(GameContext c, Game gn, int size, int missingDigits, int x, int y, int width, int height) {
         try {
-            this.frame = frame;
+            this.gameContext = c;
             this.gamePanel = gn;
             this.xPos = x;
             this.yPos = y;
@@ -79,8 +79,8 @@ class SudoTable extends JPanel {
         }
     }
 
-    SudoTable(GFrame frame, Game gn, int size, int missingDigits, int x, int y) {
-        this(frame, gn, size, missingDigits, x, y, 500, 500);
+    SudoTable(GameContext c, Game gn, int size, int missingDigits, int x, int y) {
+        this(c, gn, size, missingDigits, x, y, 500, 500);
     }
 
     protected void running() {
@@ -314,5 +314,26 @@ class SudoButton extends JButton {
 
     public void addEventOnNumberClick(ActionListener listener) {
         this.addActionListener(listener);
+    }
+}
+
+enum Difficulty {
+    EASY(35, 45), MEDIUM(46, 49), HARD(50, 53);
+
+    private int min;
+    private int max;
+
+    Difficulty(int min, int max) {
+        this.min = min;
+        this.max = max;
+    }
+
+    int Random() {
+        return (int) (Math.random() * (max - min + 1) + min);
+    }
+
+    @Override
+    public String toString() {
+        return this.name().toLowerCase();
     }
 }

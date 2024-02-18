@@ -29,7 +29,7 @@ public class Frame extends JFrame implements SoundEvents {
 
     @Override
     public void playSounds(String soundPath) {
-        soundCtrl = new Sounds(gameContext.getSoundPath());
+        soundCtrl = new Sounds(soundPath);
         soundCtrl.run();
     }
 
