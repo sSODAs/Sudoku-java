@@ -167,7 +167,7 @@ public class Menu extends JPanel implements ActionListener {
 
     private void toggleMusic() {
         if (!MusicPlay) {
-            playMusic("C:\\Users\\Acer\\Desktop\\SUDOKU\\sound\\Song1.wav");
+            playMusic("sound\\Song1.wav");
         } else {
             stopMusic();
         }
