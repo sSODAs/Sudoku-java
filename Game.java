@@ -1,214 +1,318 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+// import java.awt.MouseInfo;
 
-public class Game extends JPanel implements ActionListener {
-    Frame frame;
+import java.awt.event.*;
+import java.util.Arrays;
 
+public class Game extends JPanel {
+    private GFrame frame;
+    private SudoTable table;
+    private int SCREEN_WIDTH = 1535;
+    private int SCREEN_HEIGHT = 850;
 
-    JButton[] numButtons = new JButton[81];
-
-    private JLabel Background;
-    private JLabel Table;
-    private JButton MenuBtn;
-    private JButton ClearBtn;
-    private JButton ResetBtn;
-    private JButton SummitBtn;
-
-    private JLabel SettingPopup;
-    private JButton SettingBtn;
-    private JButton CloseSettingBtn;
-    private JButton OpenMusic;
-    private JButton CloseMusic;
-
-    final int SCREEN_WIDTH = 1535;
-    final int SCREEN_HEIGHT = 850;
-
-    Game() {
-        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-        this.setFocusable(true);
-        this.setLayout(null);
-
+    Game(GFrame frame) {
+        this.frame = frame;
         running();
-
-        System.out.println(MusicPath);
+        resetTable();
     }
 
     private void running() {
 
-        if(!MusicPath){
-            menu.stopMusic();
-        }
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setFocusable(true);
 
-        Board();
+        this.setLayout(null);
+        this.setBackground(Color.BLUE);
 
-        // Home
-        MenuBtn = new JButton(new ImageIcon("btn\\MenuBtn.png"));
-        MenuBtn.setBorderPainted(false);
-        MenuBtn.setContentAreaFilled(false);
-        MenuBtn.setBounds(50, 50, 200, 80);
-        MenuBtn.addActionListener(this);
-        // Clear
-        ClearBtn = new JButton(new ImageIcon("btn\\ClearBtn.png"));
-        ClearBtn.setBorderPainted(false);
-        ClearBtn.setContentAreaFilled(false);
-        ClearBtn.setBounds(50, 120, 200, 80);
-        ClearBtn.addActionListener(this);
-        // New
-        ResetBtn = new JButton(new ImageIcon("btn\\ResetBtn.png"));
-        ResetBtn.setBorderPainted(false);
-        ResetBtn.setContentAreaFilled(false);
-        ResetBtn.setBounds(50, 190, 200, 80);
-        ResetBtn.addActionListener(this);
-        // Summit
-        SummitBtn = new JButton(new ImageIcon("btn\\SummitBtn.png"));
-        SummitBtn.setBorderPainted(false);
-        SummitBtn.setContentAreaFilled(false);
-        SummitBtn.setBounds(50, 260, 200, 80);
-        SummitBtn.addActionListener(this);
-
-        this.add(MenuBtn);
-        this.add(ClearBtn);
-        this.add(ResetBtn);
-        this.add(SummitBtn);
-
-        // Setting
-        SettingBtn = new JButton(new ImageIcon("btn\\SettingBtn.png"));
-        SettingBtn.setBorderPainted(false);
-        SettingBtn.setContentAreaFilled(false);
-        SettingBtn.setBounds(SCREEN_WIDTH - 80, 20, 60, 60);
-        SettingBtn.addActionListener(this);
-        this.add(SettingBtn);
-
-        Backgroundmode();
     }
 
-    private void Board() {
+    private void resetTable() {
+        if (this.table != null) {
+            this.remove(this.table);
+        }
+        table = new SudoTable(frame, this, 9, 2, 100, 100);
+        this.add(table);
+        this.repaint();
+    }
 
-        final int x = 80;
-        final int y = 80;
+    public int getScreenWidth() {
+        return SCREEN_WIDTH;
+    }
 
-        int LayX = 0;
-        int LayY = 0;
+    public int getScreenHeight() {
+        return SCREEN_HEIGHT;
+    }
+}
 
-        int Numinbox = 0;
+class SudoTable extends JPanel {
+    private GFrame frame;
+    private Algorithm mySudoku;
+    private int[][] myMat;
+    // private SudoButton curButton;
+    private SudoButton curNumber;
+    // private SudoPad pad;
+    private Game gamePanel;
+    private SudoNumberPad numberPad;
+    private SudoControl control;
+    private int SCREEN_WIDTH = 500;
+    private int SCREEN_HEIGHT = 500;
+    private int xPos;
+    private int yPos;
 
-        for (int row = 0; row < 9; row++) {
-            LayY = row * y;
+    SudoTable(GFrame frame, Game gn, int size, int missingDigits, int x, int y, int width, int height) {
+        try {
+            this.frame = frame;
+            this.gamePanel = gn;
+            this.xPos = x;
+            this.yPos = y;
+            this.SCREEN_WIDTH = width;
+            this.SCREEN_HEIGHT = height;
+            this.mySudoku = new Algorithm(size, missingDigits);
 
-            for (int col = 0; col < 9; col++) {
+            this.numberPad = new SudoNumberPad();
+            this.control = new SudoControl();
+            running();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-                Numinbox = row + col;
+    SudoTable(GFrame frame, Game gn, int size, int missingDigits, int x, int y) {
+        this(frame, gn, size, missingDigits, x, y, 500, 500);
+    }
 
-                LayX = col * x;
+    protected void running() {
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setFocusable(true);
 
-                for (int i = 0; i < 9; i++) {
+        this.setLayout(new GridLayout(3, 3));
+        this.setBounds(this.xPos, this.yPos, this.SCREEN_WIDTH, this.SCREEN_HEIGHT);
+        this.setBackground(Color.WHITE);
 
-                    numButtons[i] = new JButton(String.valueOf(Numinbox));
-                    numButtons[i].addActionListener(this);
-                    numButtons[i].setBounds(440 + LayX, 60 + LayY, 60, 60);
-                    numButtons[i].setContentAreaFilled(false);
-                    numButtons[i].setFocusable(false);
+        gamePanel.add(this.control);
+        resetTable();
+    }
 
-                    this.add(numButtons[i]);
+    private void resetTable() {
+        this.mySudoku.generate();
+        this.mySudoku.print();
+        this.myMat = this.mySudoku.getMat();
+
+        for (Component c : this.getComponents()) {
+            if (c instanceof SudoBox)
+                this.remove(c);
+        }
+
+        for (int i = 0; i < this.mySudoku.getSizePerBox(); i++) {
+            for (int j = 0; j < this.mySudoku.getSizePerBox(); j++) {
+                SudoBox box = new SudoBox(mySudoku.getBox(i, j), i, j);
+                this.add(box);
+            }
+        }
+
+        if (this.numberPad != null) {
+            curNumber = null;
+            gamePanel.remove(this.numberPad);
+        }
+
+        this.numberPad = new SudoNumberPad();
+        gamePanel.add(this.numberPad);
+        gamePanel.validate();
+        gamePanel.repaint();
+    }
+
+    private ActionListener numberPadListener = new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            SudoButton btn = (SudoButton) e.getSource();
+
+            if (curNumber != null) {
+                curNumber.setContentAreaFilled(false);
+                curNumber.setBackground(null);
+                if (curNumber.getNumber() == btn.getNumber()) {
+                    curNumber = null;
+                    return;
+                }
+            }
+
+            curNumber = btn;
+            curNumber.setContentAreaFilled(true);
+            curNumber.setBackground(Color.RED);
+        }
+    };
+
+    private ActionListener btnListener = new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            SudoButton btn = (SudoButton) e.getSource();
+
+            if (curNumber != null && btn.isPuzzle()) {
+                btn.setNumber(curNumber.getNumber());
+            } else {
+
+            }
+
+        }
+    };
+
+    public void clearTable() {
+        for (Component c : this.getComponents()) {
+            SudoBox box = (SudoBox) c;
+            for (Component c2 : box.getComponents()) {
+                if (c2 instanceof SudoButton) {
+                    SudoButton btn = (SudoButton) c2;
+                    if (btn.isPuzzle()) {
+                        btn.setNumber(0);
+                    }
+                }
+            }
+        }
+        gamePanel.validate();
+        gamePanel.repaint();
+    }
+
+    public boolean checkTable() {
+        try {
+            int[][] thismat = new int[this.mySudoku.getSize()][this.mySudoku.getSize()];
+
+            for (Component c : this.getComponents()) {
+                SudoBox box = (SudoBox) c;
+                for (Component c2 : box.getComponents()) {
+                    if (c2 instanceof SudoButton) {
+                        SudoButton btn = (SudoButton) c2;
+                        thismat[btn.getRow()][btn.getCol()] = btn.getNumber();
+                    }
+                }
+            }
+
+            return this.mySudoku.isTrue(thismat);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private class SudoNumberPad extends JPanel {
+        SudoNumberPad() {
+            this.setLayout(new GridLayout(1, 9));
+            this.setBackground(Color.WHITE);
+            // this.setOpaque(false);
+
+            for (int i : new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }) {
+                SudoButton btn = new SudoButton(i, -1, -1);
+                btn.addEventOnNumberClick(numberPadListener);
+                this.add(btn);
+            }
+            System.out.println();
+            this.setBounds(xPos, yPos + SCREEN_HEIGHT + 30, SCREEN_WIDTH, 50);
+        }
+    }
+
+    private class SudoBox extends JPanel {
+        private int[][] matBox;
+        private int row;
+        private int col;
+
+        SudoBox(int[][] numBox, int row, int col) {
+            System.out.println("SudoBox");
+            this.setOpaque(false);
+            this.setBorder(new EmptyBorder(10, 10, 10, 10));
+            // this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+            this.setLayout(new GridLayout(numBox.length, numBox.length));
+
+            for (int i = 0; i < numBox.length; i++) {
+                for (int j = 0; j < numBox.length; j++) {
+                    SudoButton btn = new SudoButton(numBox[i][j], (row * numBox.length) + i, (col * numBox.length) + j);
+                    btn.addEventOnNumberClick(btnListener);
+                    this.add(btn);
                 }
             }
         }
 
-    }
-
-    private void SettingPanel(boolean MusicPlay) {
-        CloseSettingBtn = new JButton(new ImageIcon("btn\\CloseSettingBtn.png"));
-        CloseSettingBtn.setBounds(620, 680, 300, 100);
-        CloseSettingBtn.setBorderPainted(false);
-        CloseSettingBtn.setContentAreaFilled(false);
-        CloseSettingBtn.addActionListener(this);
-        this.add(CloseSettingBtn);
-
-        // Audio
-        OpenMusic = new JButton(new ImageIcon("btn\\Open_On.png"));
-        OpenMusic.setBounds(850, 218, 320, 100);
-        OpenMusic.setBorderPainted(false);
-        OpenMusic.setContentAreaFilled(false);
-        OpenMusic.addActionListener(this);
-
-        CloseMusic = new JButton(new ImageIcon("btn\\Close_Off.png"));
-        CloseMusic.setBounds(1047, 218, 320, 100);
-        CloseMusic.setBorderPainted(false);
-        CloseMusic.setContentAreaFilled(false);
-        CloseMusic.addActionListener(this);
-
-        this.add(OpenMusic);
-        this.add(CloseMusic);
-
-        if (!MusicPath) {
-            OpenMusic.setIcon(new ImageIcon(getClass().getResource("btn\\Close_On.png")));
-            CloseMusic.setIcon(new ImageIcon(getClass().getResource("btn\\Open_Off.png")));
+        public int getRow() {
+            return row;
         }
 
-        SettingPopup = new JLabel(new ImageIcon("src\\SettingBackGround.png"), JLabel.CENTER);
-        SettingPopup.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        this.add(SettingPopup);
-    }
-
-    private void Backgroundmode() {
-        // Background
-        Table = new JLabel(new ImageIcon("src\\Table.png"), JLabel.LEFT);
-        Table.setBounds(0, -30, SCREEN_WIDTH, SCREEN_HEIGHT);
-        this.add(Table);
-
-        Background = new JLabel(new ImageIcon("src\\BackgroundMenu.png"), JLabel.LEFT);
-        Background.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        this.add(Background);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == MenuBtn) {
-            this.removeAll();
-            this.validate();
-            this.repaint();
-            System.out.println("GetMenu");
-        }
-
-        if (e.getSource() == SettingBtn) {
-            this.removeAll();
-            SettingPanel(MusicPath);
-            this.validate();
-            this.repaint();
-            System.out.println("SettingMenu");
-        }
-
-        if (e.getSource() == OpenMusic) {
-            if (!MusicPath) {
-                OpenMusic.setIcon(new ImageIcon(getClass().getResource("btn\\Open_On.png")));
-                CloseMusic.setIcon(new ImageIcon(getClass().getResource("btn\\Close_Off.png")));
-                System.out.println("Music on");
-                menu.playMusic("C:\\Users\\Acer\\Desktop\\SUDOKU\\sound\\Song1.wav");
-                MusicPath = true;
-                System.out.println(MusicPath);
-            }
-        }
-
-        if (e.getSource() == CloseMusic) {
-            if (MusicPath) {
-                OpenMusic.setIcon(new ImageIcon(getClass().getResource("btn\\Close_On.png")));
-                CloseMusic.setIcon(new ImageIcon(getClass().getResource("btn\\Open_Off.png")));
-                System.out.println("Music off");
-                menu.stopMusic();
-                MusicPath = false;
-                System.out.println(MusicPath);
-            }
-        }
-
-        if (e.getSource() == CloseSettingBtn) {
-            this.removeAll();
-            running();
-            this.validate();
-            this.repaint();
-            System.out.println("Gamepage");
+        public int getCol() {
+            return col;
         }
     }
 
+    private class SudoControl extends JPanel {
+        SudoControl() {
+            this.setLayout(new GridLayout(1, 2));
+            this.setBackground(Color.WHITE);
+            this.setOpaque(false);
+
+            JButton btn1 = new JButton("Reset");
+            btn1.addActionListener((l) -> {
+                resetTable();
+            });
+
+            JButton btn2 = new JButton("Clear");
+            btn2.addActionListener((l) -> {
+                clearTable();
+            });
+
+            JButton btn3 = new JButton("Submit");
+            btn3.addActionListener((l) -> {
+                if (checkTable()) {
+                    JOptionPane.showMessageDialog(null, "You win!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "You lose!");
+                }
+            });
+
+            this.add(btn1);
+            this.add(btn2);
+            this.add(btn3);
+            this.setBounds(xPos, yPos + SCREEN_HEIGHT + 100, SCREEN_WIDTH, 50);
+        }
+    }
+}
+
+class SudoButton extends JButton {
+    private int number;
+    private int row;
+    private int col;
+    private boolean isPuzzle = false;
+
+    SudoButton(int number, int row, int col) {
+        this.row = row;
+        this.col = col;
+        this.setBorderPainted(false);
+        this.setContentAreaFilled(false);
+        this.setBorder(null);
+        this.setNumber(number);
+        this.isPuzzle = number == 0;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public boolean isPuzzle() {
+        return isPuzzle;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+        if (this.number == 0) {
+            this.setText("");
+        } else {
+            this.setText(String.valueOf(this.number));
+        }
+    }
+
+    public void addEventOnNumberClick(ActionListener listener) {
+        this.addActionListener(listener);
+    }
 }
