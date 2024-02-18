@@ -39,10 +39,10 @@ public class Menu extends JPanel implements ActionListener {
 
     Frame frame;
     
-    Menu(Frame t) {
+    Menu(GameContext t) {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
-        toggleMusic();
+        // toggleMusic();
         Start();
     }
 

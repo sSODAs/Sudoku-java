@@ -6,8 +6,6 @@ import javax.swing.*;
 public class Game extends JPanel implements ActionListener {
     Frame frame;
 
-    Menu menu = new Menu(frame);
-    boolean MusicPath = menu.isMusicPlay();
 
     JButton[] numButtons = new JButton[81];
 
