@@ -65,11 +65,12 @@ public class Settings extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == CloseSettingBtn) {
-            if (gameContext.isGameStarted()) {
-                gameContext.toGame();
-            } else {
-                gameContext.toMenu();
-            }
+            // if (gameContext.isGameStarted()) {
+            //     gameContext.toGame();
+            // } else {
+            //     gameContext.toMenu();
+            // }
+            gameContext.toPreventPage();
             System.out.println("CloseSetting");
         } else if (e.getSource() == toggleMusic) {
             gameContext.toggleSound();

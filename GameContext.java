@@ -1,4 +1,6 @@
 import java.awt.Component;
+import java.awt.Dimension;
+import javax.swing.ImageIcon;
 
 public class GameContext {
 
@@ -8,6 +10,7 @@ public class GameContext {
     private Settings setting;
     private Game game;
     private GameOver gameOver;
+    private Component[] preventPage = new Component[2];
 
     // state of the game
     private boolean isGameStarted = false;
@@ -29,9 +32,7 @@ public class GameContext {
     }
 
     public boolean init() {
-        frame.getContentPane().add(menu);
-        frame.getContentPane().validate();
-        frame.getContentPane().repaint();
+        this.updateComponent(this.menu);
         return true;
     }
 
@@ -104,6 +105,16 @@ public class GameContext {
         return true;
     }
 
+    public boolean toPreventPage() {
+        if (preventPage[0] != null) {
+            this.updateComponent(preventPage[0]);
+            return true;
+        } else {
+            this.updateComponent(this.menu);
+        }
+        return false;
+    }
+
     public boolean setGameOver(boolean isWin) {
         for (Component c : frame.getContentPane().getComponents())
             if (c instanceof GameOver)
@@ -127,6 +138,8 @@ public class GameContext {
     }
 
     private boolean updateComponent(Component c) {
+        preventPage[0] = preventPage[1];
+        preventPage[1] = c;
         frame.getContentPane().removeAll();
         frame.getContentPane().add(c);
         frame.getContentPane().validate();
@@ -168,4 +181,60 @@ interface SoundEvents {
     void playSounds(String soundPath);
 
     void closeSounds();
+}
+
+enum Number {
+    EMPTY("number\\0.png"), ONE("number\\1.png"), TWO("number\\2.png"), THREE("number\\3.png"), FOUR("number\\4.png"),
+    FIVE("number\\5.png"),
+    SIX("number\\6.png"), SEVEN("number\\7.png"), EIGHT("number\\8.png"), NINE("number\\9.png");
+
+    private String path;
+    private ImageIcon icon;
+
+    Number(String path) {
+        this.path = path;
+        this.icon = new ImageIcon(this.path);
+    }
+
+    public ImageIcon getIcon() {
+        return this.icon;
+    }
+}
+
+enum NumberPicked {
+    EMPTY("number\\0.png"), ONE("number\\Pick1.png"), TWO("number\\Pick2.png"), THREE("number\\Pick3.png"),
+    FOUR("number\\Pick4.png"),
+    FIVE("number\\Pick5.png"),
+    SIX("number\\Pick6.png"), SEVEN("number\\Pick7.png"), EIGHT("number\\Pick8.png"), NINE("number\\Pick9.png");
+
+    private String path;
+    private ImageIcon icon;
+
+    NumberPicked(String path) {
+        this.path = path;
+        this.icon = new ImageIcon(this.path);
+    }
+
+    public ImageIcon getIcon() {
+        return this.icon;
+    }
+}
+
+enum NumberSet {
+    EMPTY("number\\0.png"), ONE("number\\Set1.png"), TWO("number\\Set2.png"), THREE("number\\Set3.png"),
+    FOUR("number\\Set4.png"),
+    FIVE("number\\Set5.png"),
+    SIX("number\\Set6.png"), SEVEN("number\\Set7.png"), EIGHT("number\\Set8.png"), NINE("number\\Set9.png");
+
+    private String path;
+    private ImageIcon icon;
+
+    NumberSet(String path) {
+        this.path = path;
+        this.icon = new ImageIcon(this.path);
+    }
+
+    public ImageIcon getIcon() {
+        return this.icon;
+    }
 }

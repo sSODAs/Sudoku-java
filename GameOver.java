@@ -10,6 +10,7 @@ public class GameOver extends JPanel implements ActionListener {
     private JLabel Background;
     private JButton PlayAgain;
     private JButton Menu;
+    private JButton SettingBtn;
 
     final int SCREEN_WIDTH = 1535;
     final int SCREEN_HEIGHT = 850;
@@ -39,6 +40,13 @@ public class GameOver extends JPanel implements ActionListener {
         PlayAgain.setContentAreaFilled(false);
         PlayAgain.setBounds(620, 485, 300, 80);
         PlayAgain.addActionListener(this);
+
+        SettingBtn = new JButton(new ImageIcon("btn\\SettingBtn.png"));
+        SettingBtn.setBorderPainted(false);
+        SettingBtn.setContentAreaFilled(false);
+        SettingBtn.setBounds(gameContext.getScreenWidth() - 80, 20, 60, 60);
+        SettingBtn.addActionListener(this);
+        this.add(SettingBtn);
 
         Menu = new JButton("");
         Menu.setIcon(new ImageIcon("btn\\MenuBtn.png"));
@@ -75,9 +83,9 @@ public class GameOver extends JPanel implements ActionListener {
         if (e.getSource() == PlayAgain) {
             gameContext.toGame();
             gameContext.getGame().getTable().resetTable();
-        }
-
-        if (e.getSource() == Menu) {
+        } else if (e.getSource() == SettingBtn) {
+            gameContext.toSetting();
+        } else if (e.getSource() == Menu) {
             gameContext.toMenu();
             gameContext.endGame();
         }

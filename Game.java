@@ -51,6 +51,7 @@ public class Game extends JPanel implements ActionListener {
             this.remove(this.table);
         }
         table = new SudoTable(this.gameContext, this, 9, difficulty.Random());
+        // table = new SudoTable(this.gameContext, this, 9, 2);
         this.add(table);
         this.background();
         this.validate();
@@ -118,8 +119,7 @@ class SudoTable extends JPanel {
             SudoButton btn = (SudoButton) e.getSource();
 
             if (curNumber != null) {
-                curNumber.setContentAreaFilled(false);
-                curNumber.setBackground(null);
+                curNumber.setNumber(curNumber.getNumber(), false);
                 if (curNumber.getNumber() == btn.getNumber()) {
                     curNumber = null;
                     return;
@@ -127,8 +127,8 @@ class SudoTable extends JPanel {
             }
 
             curNumber = btn;
-            curNumber.setContentAreaFilled(true);
-            curNumber.setBackground(Color.RED);
+            btn.setNumber(btn.getNumber(), true);
+
         }
     };
 
@@ -137,7 +137,7 @@ class SudoTable extends JPanel {
             SudoButton btn = (SudoButton) e.getSource();
 
             if (curNumber != null && btn.isPuzzle()) {
-                btn.setNumber(curNumber.getNumber());
+                btn.setNumber(curNumber.getNumber(), false);
             } else {
 
             }
@@ -181,7 +181,7 @@ class SudoTable extends JPanel {
                 if (c2 instanceof SudoButton) {
                     SudoButton btn = (SudoButton) c2;
                     if (btn.isPuzzle()) {
-                        btn.setNumber(0);
+                        btn.setNumber(0, false);
                     }
                 }
             }
@@ -217,10 +217,10 @@ class SudoTable extends JPanel {
         SudoNumberPad() {
             this.setLayout(new GridLayout(3, 3));
             this.setBackground(Color.WHITE);
-            // this.setOpaque(false);
+            this.setOpaque(false);
 
             for (int i : new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }) {
-                SudoButton btn = new SudoButton(i, -1, -1);
+                SudoButton btn = new SudoButton(i, -1, -1, true, false);
                 btn.addEventOnNumberClick(numberPadListener);
                 this.add(btn);
             }
@@ -236,7 +236,7 @@ class SudoTable extends JPanel {
         SudoBox(int[][] numBox, int row, int col) {
             System.out.println("SudoBox");
             this.setOpaque(false);
-            this.setBorder(new EmptyBorder(10, 10, 10, 10));
+            this.setBorder(new EmptyBorder(5, 5, 5, 5));
             // this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
             this.setLayout(new GridLayout(numBox.length, numBox.length));
             // this.setOpaque(false);
@@ -244,10 +244,11 @@ class SudoTable extends JPanel {
 
             for (int i = 0; i < numBox.length; i++) {
                 for (int j = 0; j < numBox.length; j++) {
-                    SudoButton btn = new SudoButton(numBox[i][j], (row * numBox.length) + i, (col * numBox.length) + j);
+                    SudoButton btn = new SudoButton(numBox[i][j], (row * numBox.length) + i, (col * numBox.length) + j,
+                            true, numBox[i][j] == 0, 125, 125);
                     btn.addEventOnNumberClick(btnListener);
-                    btn.setContentAreaFilled(true);
-                    btn.setBackground(new Color(255, 255, 255));
+                    btn.setContentAreaFilled(false);
+                    // btn.setBackground(new Color(255, 255, 255));
                     this.add(btn);
                 }
             }
@@ -315,15 +316,28 @@ class SudoButton extends JButton {
     private int row;
     private int col;
     private boolean isPuzzle = false;
+    private boolean isInsertImage = false;
+    private int img_width;
+    private int img_height;
+    private boolean isPicked = false;
+    private boolean isRed = false;
 
-    SudoButton(int number, int row, int col) {
+    SudoButton(int number, int row, int col, boolean isInsertImage, boolean isRed, int img_width, int img_height) {
         this.row = row;
         this.col = col;
+        this.isInsertImage = isInsertImage;
+        this.img_width = img_width;
+        this.img_height = img_height;
+        this.isRed = isRed;
         this.setBorderPainted(false);
         this.setContentAreaFilled(false);
         this.setBorder(null);
-        this.setNumber(number);
+        this.setNumber(number, false);
         this.isPuzzle = number == 0;
+    }
+
+    SudoButton(int number, int row, int col, boolean isInsertImage, boolean isRed) {
+        this(number, row, col, isInsertImage, isRed, 110, 110);
     }
 
     public int getNumber() {
@@ -342,13 +356,50 @@ class SudoButton extends JButton {
         return isPuzzle;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(int number, boolean isPicked) {
         this.number = number;
-        if (this.number == 0) {
-            this.setText("");
-        } else {
-            this.setText(String.valueOf(this.number));
-        }
+        this.isPicked = isPicked;
+
+        if (isInsertImage)
+            if (isPicked)
+                this.setIcon(new ImageIcon(NumberPicked.values()[number].getIcon().getImage()
+                        .getScaledInstance(this.img_width, this.img_height, Image.SCALE_SMOOTH)));
+            else if (isRed)
+                this.setIcon(new ImageIcon(NumberSet.values()[number].getIcon().getImage()
+                        .getScaledInstance(this.img_width, this.img_height, Image.SCALE_SMOOTH)));
+            else
+                this.setIcon(new ImageIcon(Number.values()[number].getIcon().getImage()
+                        .getScaledInstance(this.img_width, this.img_height, Image.SCALE_SMOOTH)));
+        else
+            this.setText(String.valueOf(number));
+
+    }
+
+    // public void setNumberNotPicked() {
+    // if (this.number == 0) {
+    // this.setIcon(new
+    // ImageIcon(Number.ONE.getIcon().getImage().getScaledInstance(this.img_width,
+    // this.img_height, Image.SCALE_SMOOTH)));
+    // } else {
+    // this.setIcon(new ImageIcon(Number.values()[number - 1].getIcon().getImage()
+    // .getScaledInstance(this.img_width, this.img_height, Image.SCALE_SMOOTH)));
+    // }
+    // }
+
+    // public void setNumberPicked() {
+    // if (this.number == 0) {
+    // this.setIcon(new
+    // ImageIcon(NumberPicked.ONE.getIcon().getImage().getScaledInstance(this.img_width,
+    // this.img_height, Image.SCALE_SMOOTH)));
+    // } else {
+    // this.setIcon(new ImageIcon(NumberPicked.values()[number -
+    // 1].getIcon().getImage()
+    // .getScaledInstance(this.img_width, this.img_height, Image.SCALE_SMOOTH)));
+    // }
+    // }
+
+    public void setIsPicked(boolean isPicked) {
+        this.isPicked = isPicked;
     }
 
     public void addEventOnNumberClick(ActionListener listener) {
