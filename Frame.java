@@ -13,7 +13,7 @@ public class Frame extends JFrame implements SoundEvents {
     private Sounds soundCtrl;
 
     Frame() {
-        this.gameContext = new GameContext(this);
+        this.gameContext = new GameContext(this,1535,850);
         this.gameContext.init();
 
         this.setTitle("SUDOKU");

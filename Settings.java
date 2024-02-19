@@ -13,8 +13,6 @@ public class Settings extends JPanel implements ActionListener {
     private JButton CloseMusic;
     private JButton toggleMusic;
     private JLabel SettingPopup;
-    private int SCREEN_WIDTH = 1535;
-    private int SCREEN_HEIGHT = 850;
 
     Settings(GameContext t) {
         this.gameContext = t;
@@ -60,14 +58,18 @@ public class Settings extends JPanel implements ActionListener {
         }
 
         SettingPopup = new JLabel(new ImageIcon("src\\SettingBackGround.png"), JLabel.CENTER);
-        SettingPopup.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        SettingPopup.setBounds(0, 0, this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight());
         this.add(SettingPopup);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == CloseSettingBtn) {
-            gameContext.toMenu();
+            if (gameContext.isGameStarted()) {
+                gameContext.toGame();
+            } else {
+                gameContext.toMenu();
+            }
             System.out.println("CloseSetting");
         } else if (e.getSource() == toggleMusic) {
             gameContext.toggleSound();

@@ -6,15 +6,20 @@ public class GameContext {
     private Menu menu;
     private Settings setting;
     private Game game;
+    private GameOver gameOver;
     // state of the game
     private boolean isGameStarted = false;
     private int difficulty = -1;
     // game board
     private boolean soundOpen = false;
     private String soundPath = "sound\\Song1.wav";
+    private int screenWidth = 1535;
+    private int screenHeight = 850;
 
-    GameContext(Frame f) {
-        frame = f;
+    GameContext(Frame f, int w, int h) {
+        this.frame = f;
+        this.screenWidth = w;
+        this.screenHeight = h;
         menu = new Menu(this);
         setting = new Settings(this);
         init();
@@ -37,6 +42,18 @@ public class GameContext {
         return true;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
     public boolean toMenu() {
         for (Component c : frame.getContentPane().getComponents())
             if (c instanceof Menu)
@@ -55,16 +72,55 @@ public class GameContext {
         return true;
     }
 
-    public boolean newGame(int difficulty) {
+    public boolean toGame(int difficulty) {
         for (Component c : frame.getContentPane().getComponents())
             if (c instanceof Game)
                 return false;
 
-        if (!isGameStarted) {
+        if (!this.isGameStarted) {
             this.game = new Game(this, difficulty);
+            this.isGameStarted = true;
+            System.out.println("to game");
         }
         this.updateComponent(this.game);
         return true;
+    }
+
+    public boolean toGame() {
+        return toGame(this.difficulty);
+    }
+
+    public boolean toGameOver() {
+        for (Component c : frame.getContentPane().getComponents())
+            if (c instanceof GameOver)
+                return false;
+
+        if (this.gameOver == null)
+            return false;
+        this.updateComponent(this.gameOver);
+        return true;
+    }
+
+    public boolean setGameOver(boolean isWin) {
+        for (Component c : frame.getContentPane().getComponents())
+            if (c instanceof GameOver)
+                return false;
+
+        this.gameOver = new GameOver(this, isWin);
+        return true;
+    }
+
+    public boolean endGame() {
+        System.out.println("...");
+
+        if (this.isGameStarted) {
+            System.out.println("end game!!");
+            this.isGameStarted = false;
+            this.game = null;
+            // this.updateComponent(this.menu);
+            return true;
+        }
+        return false;
     }
 
     private boolean updateComponent(Component c) {

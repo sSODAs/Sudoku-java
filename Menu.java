@@ -16,9 +16,6 @@ public class Menu extends JPanel implements ActionListener {
     private JLabel setMode;
     private JButton SettingBtn;
 
-    final int SCREEN_WIDTH = 1535;
-    final int SCREEN_HEIGHT = 850;
-
     protected int mode = 1;
 
     GameContext gameContext;
@@ -26,7 +23,7 @@ public class Menu extends JPanel implements ActionListener {
 
     Menu(GameContext t) {
         this.gameContext = t;
-        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setPreferredSize(new Dimension(this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight()));
         this.setFocusable(true);
         Start();
     }
@@ -57,7 +54,7 @@ public class Menu extends JPanel implements ActionListener {
         SettingBtn = new JButton(new ImageIcon("btn\\SettingBtn.png"));
         SettingBtn.setBorderPainted(false);
         SettingBtn.setContentAreaFilled(false);
-        SettingBtn.setBounds(SCREEN_WIDTH - 80, 20, 60, 60);
+        SettingBtn.setBounds(this.gameContext.getScreenWidth() - 80, 20, 60, 60);
         SettingBtn.addActionListener(this);
         this.add(SettingBtn);
 
@@ -100,7 +97,7 @@ public class Menu extends JPanel implements ActionListener {
     private void Backgroundmode() {
         // Background
         Background = new JLabel(new ImageIcon("src\\BackgroundMenu.png"), JLabel.LEFT);
-        Background.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        Background.setBounds(0, 0, this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight());
         this.add(Background);
     }
 
@@ -108,7 +105,7 @@ public class Menu extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // Start
         if (e.getSource() == StartBtn) {
-            gameContext.newGame(mode);
+            gameContext.toGame(mode);
             System.out.println("StartGame");
         }
 
