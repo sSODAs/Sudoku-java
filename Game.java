@@ -107,6 +107,7 @@ class SudoTable extends JPanel {
         this.setLayout(new GridLayout(3, 3));
         this.setBounds(200, 60, 700, 700); // set table
         this.setBackground(Color.WHITE);
+        this.setOpaque(false);
 
         gamePanel.add(this.control);
         resetTable();
@@ -238,11 +239,15 @@ class SudoTable extends JPanel {
             this.setBorder(new EmptyBorder(10, 10, 10, 10));
             // this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
             this.setLayout(new GridLayout(numBox.length, numBox.length));
+            // this.setOpaque(false);
+            // this.setBackground(new Color(255, 255, 255 ));
 
             for (int i = 0; i < numBox.length; i++) {
                 for (int j = 0; j < numBox.length; j++) {
                     SudoButton btn = new SudoButton(numBox[i][j], (row * numBox.length) + i, (col * numBox.length) + j);
                     btn.addEventOnNumberClick(btnListener);
+                    btn.setContentAreaFilled(true);
+                    btn.setBackground(new Color(255, 255, 255));
                     this.add(btn);
                 }
             }
