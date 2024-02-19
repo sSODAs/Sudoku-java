@@ -26,7 +26,7 @@ public class Game extends JPanel implements ActionListener {
 
         this.setLayout(null);
 
-        this.add(new JLabel(this.difficulty.toString())).setBounds(10, 10, 100, 50);
+        // this.add(new JLabel(this.difficulty.toString())).setB0ounds(10, 10, 100, 50);
 
         SettingBtn = new JButton(new ImageIcon("btn\\SettingBtn.png"));
         SettingBtn.setBorderPainted(false);
@@ -50,9 +50,7 @@ public class Game extends JPanel implements ActionListener {
         if (this.table != null) {
             this.remove(this.table);
         }
-        table = new SudoTable(this.gameContext, this, 9, difficulty.Random(),
-                (this.gameContext.getScreenWidth() / 2) - 250,
-                (this.gameContext.getScreenHeight() / 2) - 300);
+        table = new SudoTable(this.gameContext, this, 9, difficulty.Random());
         this.add(table);
         this.background();
         this.validate();
@@ -93,19 +91,22 @@ class SudoTable extends JPanel {
     private Game gamePanel;
     private SudoNumberPad numberPad;
     private SudoControl control;
-    private int SCREEN_WIDTH = 500;
-    private int SCREEN_HEIGHT = 500;
-    private int xPos;
-    private int yPos;
+    // private int TABLE_WIDTH = 550;
+    // private int TABLE_HEIGHT = 550;
+    // private int SIDE_WIDTH = 200;
+    // private int SIDE_HEIGHT = 550;
+    // private int MARGIN = 50;
+    // private int xPos;
+    // private int yPos;
 
-    SudoTable(GameContext c, Game gn, int size, int missingDigits, int x, int y, int width, int height) {
+    SudoTable(GameContext c, Game gn, int size, int missingDigits) {
         try {
             this.gameContext = c;
             this.gamePanel = gn;
-            this.xPos = x;
-            this.yPos = y;
-            this.SCREEN_WIDTH = width;
-            this.SCREEN_HEIGHT = height;
+            // this.xPos = x;
+            // this.yPos = y;
+            // this.SCREEN_WIDTH = width;
+            // this.SCREEN_HEIGHT = height;
             this.mySudoku = new Algorithm(size, missingDigits);
 
             this.numberPad = new SudoNumberPad();
@@ -116,16 +117,18 @@ class SudoTable extends JPanel {
         }
     }
 
-    SudoTable(GameContext c, Game gn, int size, int missingDigits, int x, int y) {
-        this(c, gn, size, missingDigits, x, y, 500, 500);
-    }
+    // SudoTable(GameContext c, Game gn, int size, int missingDigits, int x, int y)
+    // {
+    // this(c, gn, size, missingDigits, x, y, 600, 600);
+    // }
 
     protected void running() {
         this.setPreferredSize(new Dimension(this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight()));
         this.setFocusable(true);
 
         this.setLayout(new GridLayout(3, 3));
-        this.setBounds(this.xPos, this.yPos, this.SCREEN_WIDTH, this.SCREEN_HEIGHT);
+        this.setBounds((gameContext.getScreenWidth() / 2) - (this.TABLE_WIDTH + this.MARGIN + this.SIDE_WIDTH),
+                (gameContext.getScreenHeight() / 2) - (this.TABLE_HEIGHT / 2), this.TABLE_WIDTH, this.TABLE_HEIGHT);
         this.setBackground(Color.WHITE);
 
         gamePanel.add(this.control);
@@ -234,7 +237,7 @@ class SudoTable extends JPanel {
 
     private class SudoNumberPad extends JPanel {
         SudoNumberPad() {
-            this.setLayout(new GridLayout(1, 9));
+            this.setLayout(new GridLayout(3, 3));
             this.setBackground(Color.WHITE);
             // this.setOpaque(false);
 
@@ -243,8 +246,7 @@ class SudoTable extends JPanel {
                 btn.addEventOnNumberClick(numberPadListener);
                 this.add(btn);
             }
-            System.out.println();
-            this.setBounds(xPos, yPos + SCREEN_HEIGHT + 30, SCREEN_WIDTH, 50);
+            this.setBounds(xPos - 30, yPos + TABLE_HEIGHT + 30, 200, 200);
         }
     }
 
@@ -280,7 +282,7 @@ class SudoTable extends JPanel {
 
     private class SudoControl extends JPanel {
         SudoControl() {
-            this.setLayout(new GridLayout(1, 4));
+            this.setLayout(new GridLayout(2, 2));
             this.setBackground(Color.WHITE);
             this.setOpaque(false);
 
@@ -316,7 +318,7 @@ class SudoTable extends JPanel {
             this.add(btn2);
             this.add(btn3);
             this.add(btn4);
-            this.setBounds(xPos, yPos + SCREEN_HEIGHT + 100, SCREEN_WIDTH,
+            this.setBounds(xPos, yPos + TABLE_HEIGHT + 100, TABLE_WIDTH,
                     50);
         }
     }

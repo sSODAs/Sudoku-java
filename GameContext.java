@@ -11,7 +11,7 @@ public class GameContext {
     private boolean isGameStarted = false;
     private int difficulty = -1;
     // game board
-    private boolean soundOpen = false;
+    private boolean soundOpen = true;
     private String soundPath = "sound\\Song1.wav";
     private int screenWidth = 1535;
     private int screenHeight = 850;

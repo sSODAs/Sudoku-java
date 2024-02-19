@@ -18,7 +18,7 @@ public class GameOver extends JPanel implements ActionListener {
     GameContext gameContext;
 
     GameOver(GameContext t, boolean state) {
-        // this.state = state;
+        this.state = state;
         this.gameContext = t;
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
