@@ -73,8 +73,8 @@ public class GameOver extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == PlayAgain) {
-            gameContext.getGame().resetTable();
             gameContext.toGame();
+            gameContext.getGame().getTable().resetTable();
         }
 
         if (e.getSource() == Menu) {

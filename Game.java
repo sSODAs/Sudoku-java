@@ -17,7 +17,6 @@ public class Game extends JPanel implements ActionListener {
         this.difficulty = Difficulty.values()[d - 1];
         running();
         resetTable();
-        background();
     }
 
     private void running() {
@@ -37,7 +36,10 @@ public class Game extends JPanel implements ActionListener {
         this.add(SettingBtn);
     }
 
-    private void background() {
+    public void background() {
+        if (Background != null) {
+            this.remove(Background);
+        }
         Background = new JLabel(new ImageIcon("src\\BackgroundMenu.png"), JLabel.LEFT);
         Background.setBounds(0, 0, this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight());
         this.add(Background);
@@ -52,6 +54,7 @@ public class Game extends JPanel implements ActionListener {
                 (this.gameContext.getScreenWidth() / 2) - 250,
                 (this.gameContext.getScreenHeight() / 2) - 300);
         this.add(table);
+        this.background();
         this.validate();
         this.repaint();
     }
@@ -62,6 +65,10 @@ public class Game extends JPanel implements ActionListener {
 
     public int getScreenHeight() {
         return this.gameContext.getScreenHeight();
+    }
+
+    public SudoTable getTable() {
+        return this.table;
     }
 
     // public void resetTable() {
@@ -181,6 +188,7 @@ class SudoTable extends JPanel {
             }
         }
 
+        gamePanel.background();
         gamePanel.validate();
         gamePanel.repaint();
     }
@@ -197,6 +205,8 @@ class SudoTable extends JPanel {
                 }
             }
         }
+
+        gamePanel.background();
         gamePanel.validate();
         gamePanel.repaint();
     }
