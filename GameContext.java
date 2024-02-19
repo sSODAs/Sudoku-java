@@ -1,15 +1,18 @@
 import java.awt.Component;
 
 public class GameContext {
+
     // object of Frame, Menu and Settings
     private Frame frame;
     private Menu menu;
     private Settings setting;
     private Game game;
     private GameOver gameOver;
+
     // state of the game
     private boolean isGameStarted = false;
     private int difficulty = -1;
+
     // game board
     private boolean soundOpen = true;
     private String soundPath = "sound\\Song1.wav";

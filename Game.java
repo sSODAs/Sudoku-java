@@ -1,7 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-// import java.awt.MouseInfo;
 
 import java.awt.event.*;
 
@@ -11,6 +10,7 @@ public class Game extends JPanel implements ActionListener {
     private Difficulty difficulty = Difficulty.EASY;
     private JLabel Background;
     private JButton SettingBtn;
+    private JLabel Logo;
 
     Game(GameContext c, int d) {
         this.gameContext = c;
@@ -21,19 +21,20 @@ public class Game extends JPanel implements ActionListener {
 
     private void running() {
 
-        this.setPreferredSize(new Dimension(this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight()));
+        this.setPreferredSize(new Dimension(gameContext.getScreenWidth(), gameContext.getScreenHeight()));
         this.setFocusable(true);
-
         this.setLayout(null);
-
-        // this.add(new JLabel(this.difficulty.toString())).setB0ounds(10, 10, 100, 50);
 
         SettingBtn = new JButton(new ImageIcon("btn\\SettingBtn.png"));
         SettingBtn.setBorderPainted(false);
         SettingBtn.setContentAreaFilled(false);
-        SettingBtn.setBounds(this.gameContext.getScreenWidth() - 80, 20, 60, 60);
+        SettingBtn.setBounds(gameContext.getScreenWidth() - 80, 20, 60, 60);
         SettingBtn.addActionListener(this);
         this.add(SettingBtn);
+
+        Logo = new JLabel(new ImageIcon("src\\MiniLogo.png"));
+        Logo.setBounds(gameContext.getScreenWidth() - 650, -150, 600, 600);
+        this.add(Logo);
     }
 
     public void background() {
@@ -43,7 +44,6 @@ public class Game extends JPanel implements ActionListener {
         Background = new JLabel(new ImageIcon("src\\BackgroundMenu.png"), JLabel.LEFT);
         Background.setBounds(0, 0, this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight());
         this.add(Background);
-        // this.setComponentZOrder(Background, 5);
     }
 
     public void resetTable() {
@@ -69,10 +69,6 @@ public class Game extends JPanel implements ActionListener {
         return this.table;
     }
 
-    // public void resetTable() {
-    // this.table.resetTable();
-    // }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == SettingBtn) {
@@ -85,30 +81,16 @@ class SudoTable extends JPanel {
     private GameContext gameContext;
     private Algorithm mySudoku;
     private int[][] myMat;
-    // private SudoButton curButton;
     private SudoButton curNumber;
-    // private SudoPad pad;
     private Game gamePanel;
     private SudoNumberPad numberPad;
     private SudoControl control;
-    // private int TABLE_WIDTH = 550;
-    // private int TABLE_HEIGHT = 550;
-    // private int SIDE_WIDTH = 200;
-    // private int SIDE_HEIGHT = 550;
-    // private int MARGIN = 50;
-    // private int xPos;
-    // private int yPos;
 
     SudoTable(GameContext c, Game gn, int size, int missingDigits) {
         try {
             this.gameContext = c;
             this.gamePanel = gn;
-            // this.xPos = x;
-            // this.yPos = y;
-            // this.SCREEN_WIDTH = width;
-            // this.SCREEN_HEIGHT = height;
             this.mySudoku = new Algorithm(size, missingDigits);
-
             this.numberPad = new SudoNumberPad();
             this.control = new SudoControl();
             running();
@@ -117,18 +99,13 @@ class SudoTable extends JPanel {
         }
     }
 
-    // SudoTable(GameContext c, Game gn, int size, int missingDigits, int x, int y)
-    // {
-    // this(c, gn, size, missingDigits, x, y, 600, 600);
-    // }
-
     protected void running() {
         this.setPreferredSize(new Dimension(this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight()));
         this.setFocusable(true);
+        this.setLayout(null);
 
         this.setLayout(new GridLayout(3, 3));
-        this.setBounds((gameContext.getScreenWidth() / 2) - (this.TABLE_WIDTH + this.MARGIN + this.SIDE_WIDTH),
-                (gameContext.getScreenHeight() / 2) - (this.TABLE_HEIGHT / 2), this.TABLE_WIDTH, this.TABLE_HEIGHT);
+        this.setBounds(200, 60, 700, 700); // set table
         this.setBackground(Color.WHITE);
 
         gamePanel.add(this.control);
@@ -246,7 +223,7 @@ class SudoTable extends JPanel {
                 btn.addEventOnNumberClick(numberPadListener);
                 this.add(btn);
             }
-            this.setBounds(xPos - 30, yPos + TABLE_HEIGHT + 30, 200, 200);
+            this.setBounds(gameContext.getScreenWidth() - 444, 290, 200, 200); // set Numpad
         }
     }
 
@@ -283,43 +260,47 @@ class SudoTable extends JPanel {
     private class SudoControl extends JPanel {
         SudoControl() {
             this.setLayout(new GridLayout(2, 2));
-            this.setBackground(Color.WHITE);
             this.setOpaque(false);
 
-            JButton btn1 = new JButton("Menu");
+            // Menu
+            JButton btn1 = new JButton(new ImageIcon("btn\\MenuBtn.png"));
+            btn1.setBorderPainted(false);
+            btn1.setContentAreaFilled(false);
             btn1.addActionListener((l) -> {
                 gameContext.toMenu();
                 gameContext.endGame();
             });
 
-            JButton btn2 = new JButton("Reset");
+            // Reset
+            JButton btn2 = new JButton(new ImageIcon("btn\\ResetBtn.png"));
+            btn2.setBorderPainted(false);
+            btn2.setContentAreaFilled(false);
             btn2.addActionListener((l) -> {
                 resetTable();
             });
 
-            JButton btn3 = new JButton("Clear");
+            // Clear
+            JButton btn3 = new JButton(new ImageIcon("btn\\ClearBtn.png"));
+            btn3.setBorderPainted(false);
+            btn3.setContentAreaFilled(false);
             btn3.addActionListener((l) -> {
                 clearTable();
             });
 
-            JButton btn4 = new JButton("Submit");
+            // Submit
+            JButton btn4 = new JButton(new ImageIcon("btn\\SubmitBtn.png"));
+            btn4.setBorderPainted(false);
+            btn4.setContentAreaFilled(false);
             btn4.addActionListener((l) -> {
-                // if (checkTable()) {
-                // // JOptionPane.showMessageDialog(null, "You win!");
-                // } else {
-                // // JOptionPane.showMessageDialog(null, "You lose!");
-                // }
                 gameContext.setGameOver(checkTable());
                 gameContext.toGameOver();
-                // gameContext.endGame();
             });
 
             this.add(btn1);
             this.add(btn2);
             this.add(btn3);
             this.add(btn4);
-            this.setBounds(xPos, yPos + TABLE_HEIGHT + 100, TABLE_WIDTH,
-                    50);
+            this.setBounds(gameContext.getScreenWidth() - 510, 550, 320, 150);
         }
     }
 }
