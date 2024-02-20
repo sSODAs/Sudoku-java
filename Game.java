@@ -237,10 +237,7 @@ class SudoTable extends JPanel {
             System.out.println("SudoBox");
             this.setOpaque(false);
             this.setBorder(new EmptyBorder(5, 5, 5, 5));
-            // this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
             this.setLayout(new GridLayout(numBox.length, numBox.length));
-            // this.setOpaque(false);
-            // this.setBackground(new Color(255, 255, 255 ));
 
             for (int i = 0; i < numBox.length; i++) {
                 for (int j = 0; j < numBox.length; j++) {
@@ -248,7 +245,6 @@ class SudoTable extends JPanel {
                             true, numBox[i][j] == 0, 125, 125);
                     btn.addEventOnNumberClick(btnListener);
                     btn.setContentAreaFilled(false);
-                    // btn.setBackground(new Color(255, 255, 255));
                     this.add(btn);
                 }
             }
