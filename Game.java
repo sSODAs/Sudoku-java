@@ -33,7 +33,7 @@ public class Game extends JPanel implements ActionListener {
         this.add(SettingBtn);
 
         Logo = new JLabel(new ImageIcon("src\\MiniLogo.png"));
-        Logo.setBounds(gameContext.getScreenWidth() - 650, -150, 600, 600);
+        Logo.setBounds(gameContext.getScreenWidth() - 750, -150, 600, 600);
         this.add(Logo);
     }
 
@@ -106,7 +106,7 @@ class SudoTable extends JPanel {
         this.setLayout(null);
 
         this.setLayout(new GridLayout(3, 3));
-        this.setBounds(200, 60, 700, 700); // set table
+        this.setBounds(200, 100, 600, 600); // set table
         this.setBackground(Color.WHITE);
         this.setOpaque(false);
 
@@ -224,7 +224,7 @@ class SudoTable extends JPanel {
                 btn.addEventOnNumberClick(numberPadListener);
                 this.add(btn);
             }
-            this.setBounds(gameContext.getScreenWidth() - 444, 290, 200, 200); // set Numpad
+            this.setBounds(gameContext.getScreenWidth() - 544, 280, 200, 200); // set Numpad
         }
     }
 
@@ -242,7 +242,7 @@ class SudoTable extends JPanel {
             for (int i = 0; i < numBox.length; i++) {
                 for (int j = 0; j < numBox.length; j++) {
                     SudoButton btn = new SudoButton(numBox[i][j], (row * numBox.length) + i, (col * numBox.length) + j,
-                            true, numBox[i][j] == 0, 125, 125);
+                            true, numBox[i][j] == 0, 120, 120);
                     btn.addEventOnNumberClick(btnListener);
                     btn.setContentAreaFilled(false);
                     this.add(btn);
@@ -302,7 +302,7 @@ class SudoTable extends JPanel {
             this.add(btn2);
             this.add(btn3);
             this.add(btn4);
-            this.setBounds(gameContext.getScreenWidth() - 510, 550, 320, 150);
+            this.setBounds(gameContext.getScreenWidth() - 600, 550, 320, 150);
         }
     }
 }
