@@ -50,8 +50,8 @@ public class Game extends JPanel implements ActionListener {
         if (this.table != null) {
             this.remove(this.table);
         }
-        // table = new SudoTable(this.gameContext, this, 9, difficulty.Random());
-        table = new SudoTable(this.gameContext, this, 9, 5);
+        table = new SudoTable(this.gameContext, this, 9, difficulty.Random());
+        // table = new SudoTable(this.gameContext, this, 9, 5);
         this.add(table);
         this.background();
         this.validate();
@@ -370,29 +370,6 @@ class SudoButton extends JButton {
             this.setText(String.valueOf(number));
 
     }
-
-    // public void setNumberNotPicked() {
-    // if (this.number == 0) {
-    // this.setIcon(new
-    // ImageIcon(Number.ONE.getIcon().getImage().getScaledInstance(this.img_width,
-    // this.img_height, Image.SCALE_SMOOTH)));
-    // } else {
-    // this.setIcon(new ImageIcon(Number.values()[number - 1].getIcon().getImage()
-    // .getScaledInstance(this.img_width, this.img_height, Image.SCALE_SMOOTH)));
-    // }
-    // }
-
-    // public void setNumberPicked() {
-    // if (this.number == 0) {
-    // this.setIcon(new
-    // ImageIcon(NumberPicked.ONE.getIcon().getImage().getScaledInstance(this.img_width,
-    // this.img_height, Image.SCALE_SMOOTH)));
-    // } else {
-    // this.setIcon(new ImageIcon(NumberPicked.values()[number -
-    // 1].getIcon().getImage()
-    // .getScaledInstance(this.img_width, this.img_height, Image.SCALE_SMOOTH)));
-    // }
-    // }
 
     public void setIsPicked(boolean isPicked) {
         this.isPicked = isPicked;

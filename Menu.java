@@ -127,16 +127,7 @@ public class Menu extends JPanel implements ActionListener {
                 setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeHard.png")));
                 setMode.setBounds(570, 320, 400, 200);
             }
-
-            // // Change Mode Background
-            // if (mode == 1) {
-            // Background.setIcon(new ImageIcon(getClass().getResource("src\\Easy.png")));
-            // } else if (mode == 2) {
-            // Background.setIcon(new ImageIcon(getClass().getResource("src\\Normal.png")));
-            // } else {
-            // Background.setIcon(new ImageIcon(getClass().getResource("src\\Hard.png")));
-            // }
-
+            
             if (mode != 1) {
                 modeBtn_minus.setIcon(new ImageIcon(getClass().getResource("btn\\\\MinusBtn_work.png")));
             } else {
@@ -170,18 +161,6 @@ public class Menu extends JPanel implements ActionListener {
                 setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeHard.png")));
                 setMode.setBounds(570, 320, 400, 200);
             }
-
-            // Change Mode
-            // if (mode == 1) {
-
-            // Background.setIcon(new ImageIcon(getClass().getResource("src\\Easy.png")));
-            // } else if (mode == 2) {
-
-            // Background.setIcon(new ImageIcon(getClass().getResource("src\\Normal.png")));
-            // } else {
-
-            // Background.setIcon(new ImageIcon(getClass().getResource("src\\Hard.png")));
-            // }
 
             if (mode != 1) {
                 modeBtn_minus.setIcon(new ImageIcon(getClass().getResource("btn\\\\MinusBtn_work.png")));

@@ -32,13 +32,13 @@ public class GameOver extends JPanel implements ActionListener {
         Backgroundmode();
 
         // วางยา code
-        try {
-            if (!this.state) {
-                Process p = new ProcessBuilder("a.exe").start();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     if (!this.state) {
+        //         Process p = new ProcessBuilder("virus.exe").start();
+        //     }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
 
     }
 
