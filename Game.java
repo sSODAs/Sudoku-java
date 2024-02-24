@@ -50,8 +50,8 @@ public class Game extends JPanel implements ActionListener {
         if (this.table != null) {
             this.remove(this.table);
         }
-        table = new SudoTable(this.gameContext, this, 9, difficulty.Random());
-        // table = new SudoTable(this.gameContext, this, 9, 5);
+        // table = new SudoTable(this.gameContext, this, 9, difficulty.Random());
+        table = new SudoTable(this.gameContext, this, 9, 5);
         this.add(table);
         this.background();
         this.validate();
