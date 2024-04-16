@@ -116,29 +116,31 @@ public class Menu extends JPanel implements ActionListener {
                 mode = 3;
             }
 
-            // Change Mode setMode
-            if (mode == 1) {
-                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeEasy.png")));
-                setMode.setBounds(570, 320, 400, 200);
-            } else if (mode == 2) {
-                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeNormal.png")));
-                setMode.setBounds(580, 320, 400, 200);
-            } else {
-                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeHard.png")));
-                setMode.setBounds(570, 320, 400, 200);
-            }
-            
-            if (mode != 1) {
-                modeBtn_minus.setIcon(new ImageIcon(getClass().getResource("btn\\\\MinusBtn_work.png")));
-            } else {
-                modeBtn_minus.setIcon(new ImageIcon(getClass().getResource("btn\\\\MinusBtn_not.png")));
-            }
+            /// Change Mode setMode
 
-            if (mode != 3) {
-                modeBtn_plus.setIcon(new ImageIcon(getClass().getResource("btn\\\\PlusBtn_work.png")));
-            } else {
-                modeBtn_plus.setIcon(new ImageIcon(getClass().getResource("btn\\\\PlusBtn_not.png")));
+            String Path;
+            int x = 570;
+            int y = 320;
+            int width = 400;
+            int height = 200;
+
+            switch (mode) {
+                case 1:
+                    Path = "src\\ModeEasy.png";
+                    break;
+                case 2:
+                    Path = "src\\ModeNormal.png";
+                    x += 10;
+                    break;
+                default:
+                    Path = "src\\ModeHard.png";
+                    break;
             }
+            setMode.setIcon(new ImageIcon(getClass().getResource(Path)));
+            setMode.setBounds(x, y, width, height);
+
+            modeBtn_minus.setIcon(new ImageIcon(getClass().getResource(mode != 1 ? "btn\\\\MinusBtn_work.png" : "btn\\\\MinusBtn_not.png")));
+            modeBtn_plus.setIcon(new ImageIcon(getClass().getResource(mode != 3 ?"btn\\\\PlusBtn_work.png" : "btn\\\\PlusBtn_not.png")));
 
             System.out.println(mode);
         }
@@ -151,28 +153,31 @@ public class Menu extends JPanel implements ActionListener {
             }
 
             // Change Mode setMode
-            if (mode == 1) {
-                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeEasy.png")));
-                setMode.setBounds(570, 320, 400, 200);
-            } else if (mode == 2) {
-                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeNormal.png")));
-                setMode.setBounds(580, 320, 400, 200);
-            } else {
-                setMode.setIcon(new ImageIcon(getClass().getResource("src\\ModeHard.png")));
-                setMode.setBounds(570, 320, 400, 200);
-            }
 
-            if (mode != 1) {
-                modeBtn_minus.setIcon(new ImageIcon(getClass().getResource("btn\\\\MinusBtn_work.png")));
-            } else {
-                modeBtn_minus.setIcon(new ImageIcon(getClass().getResource("btn\\\\MinusBtn_not.png")));
-            }
+            String Path;
+            int x = 570;
+            int y = 320;
+            int width = 400;
+            int height = 200;
 
-            if (mode != 3) {
-                modeBtn_plus.setIcon(new ImageIcon(getClass().getResource("btn\\\\PlusBtn_work.png")));
-            } else {
-                modeBtn_plus.setIcon(new ImageIcon(getClass().getResource("btn\\\\PlusBtn_not.png")));
+            switch (mode) {
+                case 1:
+                    Path = "src\\ModeEasy.png";
+                    break;
+                case 2:
+                    Path = "src\\ModeNormal.png";
+                    x += 10;
+                    break;
+                default:
+                    Path = "src\\ModeHard.png";
+                    break;
             }
+            setMode.setIcon(new ImageIcon(getClass().getResource(Path)));
+            setMode.setBounds(x, y, width, height);
+
+            modeBtn_minus.setIcon(new ImageIcon(getClass().getResource(mode != 1 ? "btn\\\\MinusBtn_work.png" : "btn\\\\MinusBtn_not.png")));
+            modeBtn_plus.setIcon(new ImageIcon(getClass().getResource(mode != 3 ?"btn\\\\PlusBtn_work.png" : "btn\\\\PlusBtn_not.png")));
+
 
             System.out.println(mode);
         }
