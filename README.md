@@ -15,7 +15,7 @@ Overall, this project shows how a complete Sudoku game can be built in Java with
 ## Presentation
 A detailed explanation of the system design, class structure, and game flow is available in the presentation file below:
 
-👉 **[Sudoku Presentation (PDF)](./SODUKU%20presentation%20(1).pdf)**
+**[Sudoku Presentation (PDF)](./sudoku-presentation.pdf)**
 
 > Download the PDF to view diagrams and implementation details.
 
@@ -30,6 +30,7 @@ git clone clone https://github.com/sSODAs/Sudoku-java.git
 
 **Compile and Execute**
 ```base
-$ javac *.java
-$ java Sudoku
+$ cd Sudoku-java
+$ javac -d build src/*.java
+$ java -cp build src.Sudoku # run
 ```
