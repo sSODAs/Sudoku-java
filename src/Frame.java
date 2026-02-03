@@ -1,4 +1,4 @@
-
+package src;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -18,7 +18,7 @@ public class Frame extends JFrame implements SoundEvents {
         this.gameContext.init();
 
         this.setTitle("SUDOKU");
-        this.setIconImage(new ImageIcon("/pics/Gameicon.png").getImage());
+        this.setIconImage(new ImageIcon("pics/Gameicon.png").getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setUndecorated(true);
         
