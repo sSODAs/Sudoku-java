@@ -3,6 +3,8 @@
 A **Sudoku puzzle game** developed in **Java using Swing**.  
 This project focuses on logical thinking and simple interaction, designed to be easy to play, especially for elderly users, while still providing cognitive benefits.
 
+<img src="docs/screenshots/Screenshot 2026-02-03 230112.png" width="400"> <img src="docs/screenshots/Screenshot 2026-02-03 230121.png" width="400">
+
 ## Game Overview
 This project is a Sudoku game built with Java and Swing, designed as a simple desktop application. The main idea of the game is to keep things easy to understand and comfortable to play, especially for users who prefer a clean and straightforward interface.
 
@@ -15,7 +17,7 @@ Overall, this project shows how a complete Sudoku game can be built in Java with
 ## Presentation
 A detailed explanation of the system design, class structure, and game flow is available in the presentation file below:
 
-**[Sudoku Presentation (PDF)](./sudoku-presentation.pdf)**
+**[Sudoku Presentation (PDF)](./docs/sudoku-presentation.pdf)**
 
 > Download the PDF to view diagrams and implementation details.
 
