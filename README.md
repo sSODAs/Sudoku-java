@@ -17,7 +17,7 @@ Overall, this project shows how a complete Sudoku game can be built in Java with
 ## Presentation
 A detailed explanation of the system design, class structure, and game flow is available in the presentation file below:
 
-**[Sudoku Presentation (PDF)](./docs/sudoku-presentation.pdf)**
+**[Sudoku Presentation (PDF)](docs/SODUKU-presentation.pdf)**
 
 > Download the PDF to view diagrams and implementation details.
 
