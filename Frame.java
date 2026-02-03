@@ -20,6 +20,7 @@ public class Frame extends JFrame implements SoundEvents {
         this.setIconImage(new ImageIcon("src\\Gameicon.png").getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setUndecorated(true);
+        
         this.setResizable(false);
         this.pack();
         this.setVisible(true);
