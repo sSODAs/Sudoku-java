@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -25,14 +26,14 @@ public class Game extends JPanel implements ActionListener {
         this.setFocusable(true);
         this.setLayout(null);
 
-        SettingBtn = new JButton(new ImageIcon("btn\\SettingBtn.png"));
+        SettingBtn = new JButton(new ImageIcon("/btn/SettingBtn.png"));
         SettingBtn.setBorderPainted(false);
         SettingBtn.setContentAreaFilled(false);
         SettingBtn.setBounds(gameContext.getScreenWidth() - 80, 20, 60, 60);
         SettingBtn.addActionListener(this);
         this.add(SettingBtn);
 
-        Logo = new JLabel(new ImageIcon("src\\MiniLogo.png"));
+        Logo = new JLabel(new ImageIcon("/pics/MiniLogo.png"));
         Logo.setBounds(gameContext.getScreenWidth() - 750, -150, 600, 600);
         this.add(Logo);
     }
@@ -41,7 +42,7 @@ public class Game extends JPanel implements ActionListener {
         if (Background != null) {
             this.remove(Background);
         }
-        Background = new JLabel(new ImageIcon("src\\BackgroundMenu.png"), JLabel.LEFT);
+        Background = new JLabel(new ImageIcon("/pics/BackgroundMenu.png"), JLabel.LEFT);
         Background.setBounds(0, 0, this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight());
         this.add(Background);
     }
@@ -265,7 +266,7 @@ class SudoTable extends JPanel {
             this.setOpaque(false);
 
             // Menu
-            JButton btn1 = new JButton(new ImageIcon("btn\\MenuBtn.png"));
+            JButton btn1 = new JButton(new ImageIcon("/btn/MenuBtn.png"));
             btn1.setBorderPainted(false);
             btn1.setContentAreaFilled(false);
             btn1.addActionListener((l) -> {
@@ -274,7 +275,7 @@ class SudoTable extends JPanel {
             });
 
             // Reset
-            JButton btn2 = new JButton(new ImageIcon("btn\\ResetBtn.png"));
+            JButton btn2 = new JButton(new ImageIcon("/btn/ResetBtn.png"));
             btn2.setBorderPainted(false);
             btn2.setContentAreaFilled(false);
             btn2.addActionListener((l) -> {
@@ -282,7 +283,7 @@ class SudoTable extends JPanel {
             });
 
             // Clear
-            JButton btn3 = new JButton(new ImageIcon("btn\\ClearBtn.png"));
+            JButton btn3 = new JButton(new ImageIcon("/btn/ClearBtn.png"));
             btn3.setBorderPainted(false);
             btn3.setContentAreaFilled(false);
             btn3.addActionListener((l) -> {
@@ -290,7 +291,7 @@ class SudoTable extends JPanel {
             });
 
             // Submit
-            JButton btn4 = new JButton(new ImageIcon("btn\\SubmitBtn.png"));
+            JButton btn4 = new JButton(new ImageIcon("/btn/SubmitBtn.png"));
             btn4.setBorderPainted(false);
             btn4.setContentAreaFilled(false);
             btn4.addActionListener((l) -> {

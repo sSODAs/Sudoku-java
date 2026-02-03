@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,26 +30,17 @@ public class GameOver extends JPanel implements ActionListener {
         Button();
         Backgroundmode();
 
-        // วางยา code
-        // try {
-        // if (!this.state) {
-        // Process p = new ProcessBuilder("virus.exe").start();
-        // }
-        // } catch (Exception e) {
-        // e.printStackTrace();
-        // }
-
     }
 
     private void Button() {
         PlayAgain = new JButton("");
-        PlayAgain.setIcon(new ImageIcon("btn\\PlayagainBtn.png"));
+        PlayAgain.setIcon(new ImageIcon("/btn/PlayagainBtn.png"));
         PlayAgain.setBorderPainted(false);
         PlayAgain.setContentAreaFilled(false);
         PlayAgain.setBounds(620, 485, 300, 80);
         PlayAgain.addActionListener(this);
 
-        SettingBtn = new JButton(new ImageIcon("btn\\SettingBtn.png"));
+        SettingBtn = new JButton(new ImageIcon("/btn/SettingBtn.png"));
         SettingBtn.setBorderPainted(false);
         SettingBtn.setContentAreaFilled(false);
         SettingBtn.setBounds(gameContext.getScreenWidth() - 80, 20, 60, 60);
@@ -56,7 +48,7 @@ public class GameOver extends JPanel implements ActionListener {
         this.add(SettingBtn);
 
         Menu = new JButton("");
-        Menu.setIcon(new ImageIcon("btn\\MenuBtn.png"));
+        Menu.setIcon(new ImageIcon("/btn/MenuBtn.png"));
         Menu.setBorderPainted(false);
         Menu.setContentAreaFilled(false);
         Menu.setBounds(670, 570, 200, 80);
@@ -67,12 +59,12 @@ public class GameOver extends JPanel implements ActionListener {
     }
 
     private void Stat() {
-        Win_Lose = new JLabel(new ImageIcon("src\\YouLose.png"));
+        Win_Lose = new JLabel(new ImageIcon("/pics/YouLose.png"));
         Win_Lose.setBounds(460, 100, 600, 450);
         this.add(Win_Lose);
 
         if (state) {
-            Win_Lose.setIcon(new ImageIcon("src\\YouWin.png"));
+            Win_Lose.setIcon(new ImageIcon("/pics/YouWin.png"));
             Win_Lose.setBounds((this.gameContext.getScreenWidth() / 2) - 300, 100, 600, 450);
         }
 
@@ -80,7 +72,7 @@ public class GameOver extends JPanel implements ActionListener {
 
     private void Backgroundmode() {
         // Background
-        Background = new JLabel(new ImageIcon("src\\BackgroundMenu.png"), JLabel.LEFT);
+        Background = new JLabel(new ImageIcon("/pics/BackgroundMenu.png"), JLabel.LEFT);
         Background.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         this.add(Background);
     }

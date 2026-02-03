@@ -1,3 +1,4 @@
+
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
@@ -18,7 +19,7 @@ public class GameContext {
 
     // game board
     private boolean soundOpen = false;
-    private String soundPath = "sound\\Song1.wav";
+    private String soundPath = "/sound/Song1.wav";
     private int screenWidth = 1535;
     private int screenHeight = 850;
 
@@ -184,9 +185,9 @@ interface SoundEvents {
 }
 
 enum Number {
-    EMPTY("number\\0.png"), ONE("number\\1.png"), TWO("number\\2.png"), THREE("number\\3.png"), FOUR("number\\4.png"),
-    FIVE("number\\5.png"),
-    SIX("number\\6.png"), SEVEN("number\\7.png"), EIGHT("number\\8.png"), NINE("number\\9.png");
+    EMPTY("/number/0.png"), ONE("/number/1.png"), TWO("/number/2.png"), THREE("/number/3.png"), FOUR("/number/4.png"),
+    FIVE("/number/5.png"),
+    SIX("/number/6.png"), SEVEN("/number/7.png"), EIGHT("/number/8.png"), NINE("/number/9.png");
 
     private String path;
     private ImageIcon icon;
@@ -202,10 +203,10 @@ enum Number {
 }
 
 enum NumberPicked {
-    EMPTY("number\\0.png"), ONE("number\\Pick1.png"), TWO("number\\Pick2.png"), THREE("number\\Pick3.png"),
-    FOUR("number\\Pick4.png"),
-    FIVE("number\\Pick5.png"),
-    SIX("number\\Pick6.png"), SEVEN("number\\Pick7.png"), EIGHT("number\\Pick8.png"), NINE("number\\Pick9.png");
+    EMPTY("/number/0.png"), ONE("/number/Pick1.png"), TWO("/number/Pick2.png"), THREE("/number/Pick3.png"),
+    FOUR("/number/Pick4.png"),
+    FIVE("/number/Pick5.png"),
+    SIX("/number/Pick6.png"), SEVEN("/number/Pick7.png"), EIGHT("/number/Pick8.png"), NINE("/number/Pick9.png");
 
     private String path;
     private ImageIcon icon;
@@ -221,10 +222,10 @@ enum NumberPicked {
 }
 
 enum NumberSet {
-    EMPTY("number\\0.png"), ONE("number\\Set1.png"), TWO("number\\Set2.png"), THREE("number\\Set3.png"),
-    FOUR("number\\Set4.png"),
-    FIVE("number\\Set5.png"),
-    SIX("number\\Set6.png"), SEVEN("number\\Set7.png"), EIGHT("number\\Set8.png"), NINE("number\\Set9.png");
+    EMPTY("/number/0.png"), ONE("/number/Set1.png"), TWO("/number/Set2.png"), THREE("/number/Set3.png"),
+    FOUR("/number/Set4.png"),
+    FIVE("/number/Set5.png"),
+    SIX("/number/Set6.png"), SEVEN("/number/Set7.png"), EIGHT("/number/Set8.png"), NINE("/number/Set9.png");
 
     private String path;
     private ImageIcon icon;

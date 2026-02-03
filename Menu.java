@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,15 +35,15 @@ public class Menu extends JPanel implements ActionListener {
 
         // Start
         StartBtn = new JButton("");
-        StartBtn.setIcon(new ImageIcon("btn\\StartBtn.png"));
+        StartBtn.setIcon(new ImageIcon("/btn/StartBtn.png"));
         StartBtn.setBorderPainted(false);
         StartBtn.setContentAreaFilled(false);
         StartBtn.setBounds(670, 500, 200, 80);
         StartBtn.addActionListener(this);
 
         // Mode
-        modeBtn_plus = new JButton(new ImageIcon("btn\\\\PlusBtn_work.png"));
-        modeBtn_minus = new JButton(new ImageIcon("btn\\\\MinusBtn_not.png"));
+        modeBtn_plus = new JButton(new ImageIcon("/btn/PlusBtn_work.png"));
+        modeBtn_minus = new JButton(new ImageIcon("/btn/MinusBtn_not.png"));
         modeBtn_plus.setBorderPainted(false);
         modeBtn_plus.setContentAreaFilled(false);
         modeBtn_minus.setBorderPainted(false);
@@ -51,7 +52,7 @@ public class Menu extends JPanel implements ActionListener {
         modeBtn_minus.setBounds(480, 370, 80, 80);
 
         // Setting
-        SettingBtn = new JButton(new ImageIcon("btn\\SettingBtn.png"));
+        SettingBtn = new JButton(new ImageIcon("/btn/SettingBtn.png"));
         SettingBtn.setBorderPainted(false);
         SettingBtn.setContentAreaFilled(false);
         SettingBtn.setBounds(this.gameContext.getScreenWidth() - 80, 20, 60, 60);
@@ -67,14 +68,14 @@ public class Menu extends JPanel implements ActionListener {
         this.add(modeBtn_minus);
 
         // Exit
-        ExitBtn = new JButton(new ImageIcon("btn\\ExitBtn.png"));
+        ExitBtn = new JButton(new ImageIcon("/btn/ExitBtn.png"));
         ExitBtn.setBounds(675, 570, 200, 80);
         ExitBtn.setBorderPainted(false);
         ExitBtn.setContentAreaFilled(false);
         ExitBtn.addActionListener(this);
         this.add(ExitBtn);
 
-        Logo = new JLabel(new ImageIcon("src\\GameLogo2.png"));
+        Logo = new JLabel(new ImageIcon("/pics/GameLogo2.png"));
 
         final int LOGO_X = (460);
         final int LOGO_Y = (-100);
@@ -89,14 +90,14 @@ public class Menu extends JPanel implements ActionListener {
     // Mode
 
     private void Gamemode() {
-        setMode = new JLabel(new ImageIcon("src\\ModeEasy.png"));
+        setMode = new JLabel(new ImageIcon("/pics/ModeEasy.png"));
         setMode.setBounds(570, 320, 400, 200);
         this.add(setMode);
     }
 
     private void Backgroundmode() {
         // Background
-        Background = new JLabel(new ImageIcon("src\\BackgroundMenu.png"), JLabel.LEFT);
+        Background = new JLabel(new ImageIcon("/pics/BackgroundMenu.png"), JLabel.LEFT);
         Background.setBounds(0, 0, this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight());
         this.add(Background);
     }
@@ -126,21 +127,21 @@ public class Menu extends JPanel implements ActionListener {
 
             switch (mode) {
                 case 1:
-                    Path = "src\\ModeEasy.png";
+                    Path = "/pics/ModeEasy.png";
                     break;
                 case 2:
-                    Path = "src\\ModeNormal.png";
+                    Path = "/pics/ModeNormal.png";
                     x += 10;
                     break;
                 default:
-                    Path = "src\\ModeHard.png";
+                    Path = "/pics/ModeHard.png";
                     break;
             }
             setMode.setIcon(new ImageIcon(getClass().getResource(Path)));
             setMode.setBounds(x, y, width, height);
 
-            modeBtn_minus.setIcon(new ImageIcon(getClass().getResource(mode != 1 ? "btn\\\\MinusBtn_work.png" : "btn\\\\MinusBtn_not.png")));
-            modeBtn_plus.setIcon(new ImageIcon(getClass().getResource(mode != 3 ?"btn\\\\PlusBtn_work.png" : "btn\\\\PlusBtn_not.png")));
+            modeBtn_minus.setIcon(new ImageIcon(getClass().getResource(mode != 1 ? "/btn/MinusBtn_work.png" : "/btn/MinusBtn_not.png")));
+            modeBtn_plus.setIcon(new ImageIcon(getClass().getResource(mode != 3 ?"/btn/PlusBtn_work.png" : "/btn/PlusBtn_not.png")));
 
             System.out.println(mode);
         }
@@ -162,21 +163,21 @@ public class Menu extends JPanel implements ActionListener {
 
             switch (mode) {
                 case 1:
-                    Path = "src\\ModeEasy.png";
+                    Path = "/pics/ModeEasy.png";
                     break;
                 case 2:
-                    Path = "src\\ModeNormal.png";
+                    Path = "/pics/ModeNormal.png";
                     x += 10;
                     break;
                 default:
-                    Path = "src\\ModeHard.png";
+                    Path = "/pics/ModeHard.png";
                     break;
             }
             setMode.setIcon(new ImageIcon(getClass().getResource(Path)));
             setMode.setBounds(x, y, width, height);
 
-            modeBtn_minus.setIcon(new ImageIcon(getClass().getResource(mode != 1 ? "btn\\\\MinusBtn_work.png" : "btn\\\\MinusBtn_not.png")));
-            modeBtn_plus.setIcon(new ImageIcon(getClass().getResource(mode != 3 ?"btn\\\\PlusBtn_work.png" : "btn\\\\PlusBtn_not.png")));
+            modeBtn_minus.setIcon(new ImageIcon(getClass().getResource(mode != 1 ? "/btn/MinusBtn_work.png" : "/btn/MinusBtn_not.png")));
+            modeBtn_plus.setIcon(new ImageIcon(getClass().getResource(mode != 3 ?"/btn/PlusBtn_work.png" : "/btn/PlusBtn_not.png")));
 
 
             System.out.println(mode);

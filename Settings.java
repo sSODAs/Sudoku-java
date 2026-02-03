@@ -1,3 +1,4 @@
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,14 +18,14 @@ public class Settings extends JPanel implements ActionListener {
     Settings(GameContext t) {
         this.gameContext = t;
         this.setLayout(null);
-        CloseSettingBtn = new JButton(new ImageIcon("btn\\CloseSettingBtn.png"));
+        CloseSettingBtn = new JButton(new ImageIcon("/btn/CloseSettingBtn.png"));
         CloseSettingBtn.setBounds(620, 680, 300, 100);
         CloseSettingBtn.setBorderPainted(false);
         CloseSettingBtn.setContentAreaFilled(false);
         CloseSettingBtn.addActionListener(this);
         this.add(CloseSettingBtn);
 
-        toggleMusic = new JButton(new ImageIcon("btn\\Open_Off.png"));
+        toggleMusic = new JButton(new ImageIcon("/btn/Open_Off.png"));
         toggleMusic.setBounds(1047, 218, 320, 100);
         toggleMusic.setBorderPainted(false);
         toggleMusic.setContentAreaFilled(false);
@@ -33,10 +34,10 @@ public class Settings extends JPanel implements ActionListener {
         this.add(toggleMusic);
 
         if (!gameContext.isSoundOpen()) {
-            toggleMusic.setIcon(new ImageIcon(getClass().getResource("btn\\Open_On.png")));
+            toggleMusic.setIcon(new ImageIcon(getClass().getResource("/btn/Open_On.png")));
         }
 
-        SettingPopup = new JLabel(new ImageIcon("src\\SettingBackGround.png"), JLabel.CENTER);
+        SettingPopup = new JLabel(new ImageIcon("/pics/SettingBackGround.png"), JLabel.CENTER);
         SettingPopup.setBounds(0, 0, this.gameContext.getScreenWidth(), this.gameContext.getScreenHeight());
         this.add(SettingPopup);
     }
@@ -51,9 +52,9 @@ public class Settings extends JPanel implements ActionListener {
         } else if (e.getSource() == toggleMusic) {
             gameContext.toggleSound();
             if (!gameContext.isSoundOpen()) {
-                toggleMusic.setIcon(new ImageIcon(getClass().getResource("btn\\Open_Off.png")));
+                toggleMusic.setIcon(new ImageIcon(getClass().getResource("/btn/Open_Off.png")));
             } else {
-                toggleMusic.setIcon(new ImageIcon(getClass().getResource("btn\\Open_On.png")));
+                toggleMusic.setIcon(new ImageIcon(getClass().getResource("/btn/Open_On.png")));
             }
         }
     }
